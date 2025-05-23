@@ -1,0 +1,10 @@
+- name: Check if aider is already installed
+  ansible.builtin.stat:
+    path: "{{ ansible_env.HOME }}/.local/bin/aider"
+  register: aider_executable
+
+- name: Install aider via its install script
+  ansible.builtin.shell: uv tool install --force --with pip aider-chat@latest
+  args:
+    creates: "{{ ansible_env.HOME }}/.local/bin/aider"
+  when: not aider_executable.stat.exists

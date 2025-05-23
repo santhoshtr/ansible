@@ -62,9 +62,10 @@ packages:
     - postgresql-client
     - mysql-client
 
-    # Docker and containers
+    # Docker, virtualization and containers
     - docker-ce
     - docker-compose
+    - quickemu
 
     # System monitoring
     - neofetch
@@ -88,6 +89,7 @@ packages:
     - uv
     - yazi
     - fzf
+    - basedpyright
   snap:
     - slack --classic
 
@@ -110,4 +112,5 @@ apt_repositories:
 ppa_repositories:
   - "ppa:kobuk-team/intel-graphics"
   - "ppa:keyd-team/ppa"
+  - "ppa:flexiondotorg/quickemu"
   # -  ppa:cppiber/hyprland

@@ -30,3 +30,8 @@
   import_tasks: web.yaml
   tags:
     - web
+- name: AI Assistants
+  import_tasks: ai.yaml
+  tags:
+    - AI
+    - aider
