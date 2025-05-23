@@ -2,3 +2,20 @@ nvm:
   path: "{{ home_dir }}/.nvm"
   # https://github.com/nvm-sh/nvm/releases
   version: v0.39.4
+
+languages:
+  python:
+    enabled: true
+    versions: ["3.11", "3.12"]
+  node:
+    enabled: true
+    version: "22"
+  golang:
+    enabled: true
+    version: "1.24.3"
+  java:
+    enabled: false
+    version: "17"
+  rust:
+    enabled: true
+    components: ["rustfmt", "clippy", "rust-analyzer"]

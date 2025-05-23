@@ -26,3 +26,25 @@
     line: 'export PATH="$HOME/.cargo/bin:$PATH"'
     create: yes
   become: false
+
+- name: Install additional Rust components
+  shell: |
+    source {{ home_dir }}/.cargo/env
+    rustup component add {{ item }}
+  loop: "{{ languages.rust.components }}"
+  become: false
+  when: languages.rust.enabled
+# - name: Install common Rust tools
+#   shell: |
+#     source {{ home_dir }}/.cargo/env
+#     cargo install {{ item }}
+#   loop:
+#     - cargo-watch
+#     - cargo-edit
+#     - cargo-tree
+#     - cargo-outdated
+#     - tokei
+#     - bottom
+#   become: false
+#   ignore_errors: true
+#   when: languages.rust.enabled

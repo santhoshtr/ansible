@@ -4,7 +4,6 @@ packages:
     - stow
     - zsh
     - bash
-    - build-essential
     - htop
 
   system:
@@ -17,7 +16,63 @@ packages:
     - unzip
     - unrar
     - pipx
-      tmux
+    - tmux
+    # Build essentials
+    - build-essential
+    - cmake
+    - pkg-config
+    - libssl-dev
+    - libffi-dev
+    - libsqlite3-dev
+    - libbz2-dev
+    - libreadline-dev
+    - libncurses5-dev
+    - libncursesw5-dev
+    - xz-utils
+    - tk-dev
+    - libxml2-dev
+    - libxmlsec1-dev
+    - libffi-dev
+    - liblzma-dev
+    # Version control and tools
+    - git
+    - git-lfs
+    - tig
+    - gh # GitHub CLI
+    # Network and download tools
+    - curl
+    - wget
+    - httpie
+    - jq
+    - yq
+    # Text processing and utilities
+    - ripgrep
+    - fd-find
+    - exa
+    - bat
+    - tree
+    - htop
+    - btop
+    - unzip
+    - zip
+    - 7zip
+
+    # Database tools
+    - sqlite3
+    - postgresql-client
+    - mysql-client
+
+    # Docker and containers
+    - docker-ce
+    - docker-compose
+
+    # System monitoring
+    - neofetch
+    - fastfetch
+    - lsof
+    - strace
+    - tcpdump
+    - pavucontrol
 
   desktop:
     # Audio and video
@@ -31,6 +86,10 @@ packages:
     - podman
   brew:
     - uv
+    - yazi
+    - fzf
+  snap:
+    - slack --classic
 
 apt_signing_keys:
   - https://www.virtualbox.org/download/oracle_vbox_2016.asc
@@ -50,3 +109,5 @@ apt_repositories:
 
 ppa_repositories:
   - "ppa:kobuk-team/intel-graphics"
+  - "ppa:keyd-team/ppa"
+  # -  ppa:cppiber/hyprland

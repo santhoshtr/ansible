@@ -1,0 +1,19 @@
+- name: Install OpenJDK
+  become: true
+  apt:
+    name: "openjdk-{{ languages.java.version }}-jdk"
+    state: present
+
+- name: Install Maven and Gradle
+  apt:
+    name:
+      - maven
+      - gradle
+    state: present
+
+- name: Set JAVA_HOME
+  lineinfile:
+    path: "{{ home_dir }}/.bashrc"
+    line: "export JAVA_HOME=/usr/lib/jvm/java-{{ languages.java.version }}-openjdk-amd64"
+    create: yes
+  become: false

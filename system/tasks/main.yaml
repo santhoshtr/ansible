@@ -4,3 +4,16 @@
 - name: Install and update brew packages
   import_tasks: brew.yaml
   tags: ["brew"]
+- name: Shell enhancements
+  import_tasks: shell.yaml
+  tags:
+    - shell
+- name: Desktop environment
+  import_tasks: desktop.yaml
+  tags:
+    - desktop
+    - hyprland
+- name: Docker
+  import_tasks: docker.yaml
+  tags:
+    - docker

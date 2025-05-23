@@ -1,0 +1,6 @@
+- name: Install snap packages
+  snap:
+    name: "{{ item.split()[0] }}"
+    classic: "{{ '--classic' in item }}"
+  loop: "{{ packages.snap }}"
+  ignore_errors: false

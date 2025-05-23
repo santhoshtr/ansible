@@ -1,0 +1,9 @@
+- name: Web dev tools installed
+  become: true
+  community.general.npm:
+    global: true
+    name: "{{ item }}"
+  with_items:
+    - prettier
+    - "@biome/biome"
+    - eslint

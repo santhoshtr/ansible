@@ -9,3 +9,21 @@
     dest: "{{ home_dir }}/install_nvm.sh"
     mode: "777"
   when: not nvm_dir.stat.exists
+
+- name: Install Node.js with nvm
+  shell: |
+    export NVM_DIR="{{ home_dir }}/.nvm"
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+    nvm install {{ languages.node.version }}
+    nvm use {{ languages.node.version }}
+    nvm alias default {{ languages.node.version }}
+  become: false
+  when: languages.node.enabled
+
+- name: Install global npm packages
+  shell: |
+    export NVM_DIR="{{ home_dir }}/.nvm"
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+    npm install -g yarn pnpm typescript ts-node eslint prettier nodemon
+  become: false
+  when: languages.node.enabled

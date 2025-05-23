@@ -8,26 +8,23 @@
 - name: Install core packages
   become: true
   ansible.builtin.apt:
-    name: "{{ item }}"
+    name: "{{ packages.core }}"
     state: latest
     update_cache: no
-  loop: "{{ packages.core }}"
 
 - name: Install system packages
   become: true
   ansible.builtin.apt:
-    name: "{{ item }}"
+    name: "{{ packages.system }}"
     state: latest
     update_cache: no
-  loop: "{{ packages.system }}"
 
 - name: Install desktop packages
   become: true
   ansible.builtin.apt:
-    name: "{{ item }}"
+    name: "{{ packages.desktop }}"
     state: latest
     update_cache: no
-  loop: "{{ packages.desktop }}"
 # - name: Install signing keys from ubuntu keyserver
 #   apt_key:
 #     keyserver: keyserver.ubuntu.com
@@ -40,7 +37,9 @@
 #     state: present
 #   with_items: "{{ apt_repositories }}"
 #
-# - name: Add ppa repositories
-#   apt_repository:
-#     repo: "{{ item }}"
-#   with_items: "{{ ppa_repositories }}"
+- name: Add ppa repositories
+  tags:
+    - ppa
+  apt_repository:
+    repo: "{{ item }}"
+  with_items: "{{ ppa_repositories }}"

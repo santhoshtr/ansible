@@ -16,3 +16,17 @@
   import_tasks: rust.yaml
   tags:
     - rust
+- name: Install Go
+  import_tasks: go.yaml
+  when: languages.golang.enabled
+  tags:
+    - go
+- name: Install Java
+  import_tasks: java.yaml
+  when: languages.java.enabled
+  tags:
+    - java
+- name: Web dev tools
+  import_tasks: web.yaml
+  tags:
+    - web

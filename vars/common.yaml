@@ -5,6 +5,7 @@ locales:
 hostname: carbon9
 user: santhosh
 username: "{{ user }}"
+user_name: "{{ user }}"
 github_username: santhoshtr
 email: santhosh.thottingal@gmail.com
 ubuntu_distribution: oracular

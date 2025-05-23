@@ -1,0 +1,42 @@
+- name: Desktop and Window manager packages
+  become: true
+  ansible.builtin.package:
+    name: "{{ item }}"
+  with_items:
+    - wayland-utils
+    - wayland-protocols
+    - waybar
+    - upower
+    - xclip
+    - light
+    - wl-clipboard
+    # - nwg-launchers
+    # - swaylock
+    # - wlsunset
+    - dunst
+    - keyd
+    # - eww
+    # - hyprland
+    # - swww
+    # - lxpolkit
+    - bluez
+    - blueman
+    - xdg-desktop-portal-wlr
+- name: Certain directories exists
+  ansible.builtin.file:
+    path: /etc/keyd
+    state: directory
+
+- name: Has keyd config
+  become: true
+  ansible.builtin.copy:
+    src: ./config/keyd.conf
+    dest: /etc/keyd/default.conf
+    mode: "0644"
+
+- name: Has keyd daemon enabled
+  tags: [system]
+  become: true
+  ansible.builtin.systemd:
+    name: keyd
+    enabled: true

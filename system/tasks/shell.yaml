@@ -1,0 +1,54 @@
+- name: Add custom aliases to bashrc
+  lineinfile:
+    path: "{{ home_dir }}/.bashrc"
+    line: "{{ item }}"
+    create: yes
+  loop:
+    - "# Development aliases"
+    - "alias ll='exa -la'"
+    - "alias la='exa -la'"
+    - "alias cat='bat'"
+    - "alias find='fd'"
+    - "alias grep='rg'"
+    - "alias top='btop'"
+    - "# Git aliases"
+    - "alias gs='git status'"
+    - "alias ga='git add'"
+    - "alias gc='git commit'"
+    - "alias gp='git push'"
+    - "alias gl='git log --oneline'"
+    - "alias gd='git diff'"
+  become: false
+
+- name: Add custom aliases to zshrc
+  lineinfile:
+    path: "{{ home_dir }}/.zshrc"
+    line: "{{ item }}"
+    create: yes
+  loop:
+    - "# Development aliases"
+    - "alias ll='exa -la'"
+    - "alias la='exa -la'"
+    - "alias cat='bat'"
+    - "alias find='fd'"
+    - "alias grep='rg'"
+    - "alias top='btop'"
+    - "# Git aliases"
+    - "alias gs='git status'"
+    - "alias ga='git add'"
+    - "alias gc='git commit'"
+    - "alias gp='git push'"
+    - "alias gl='git log --oneline'"
+    - "alias gd='git diff'"
+  become: false
+
+- name: Install Oh My Zsh (optional shell enhancement)
+  shell: |
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+  become: false
+  ignore_errors: true
+
+- name: Has zsh as default shell
+  become: true
+  ansible.builtin.shell:
+    cmd: "usermod --shell /bin/zsh $(whoami)"

@@ -1,0 +1,53 @@
+- name: Download and install Go
+  become: true
+  unarchive:
+    src: "https://go.dev/dl/go{{ languages.golang.version }}.linux-amd64.tar.gz"
+    dest: /usr/local
+    remote_src: yes
+    creates: "/usr/local/go/bin/go"
+
+- name: Add Go to PATH in bashrc
+  lineinfile:
+    path: "{{ home_dir }}/.bashrc"
+    line: "{{ item }}"
+    create: yes
+  loop:
+    - "export GOROOT=/usr/local/go"
+    - "export GOPATH=$HOME/go"
+    - "export PATH=$GOPATH/bin:$GOROOT/bin:$PATH"
+  become: false
+
+- name: Add Go to PATH in zshrc
+  lineinfile:
+    path: "{{ home_dir }}/.zshrc"
+    line: "{{ item }}"
+    create: yes
+  loop:
+    - "export GOROOT=/usr/local/go"
+    - "export GOPATH=$HOME/go"
+    - "export PATH=$GOPATH/bin:$GOROOT/bin:$PATH"
+  become: false
+
+- name: Create Go workspace
+  file:
+    path: "{{ home_dir }}/go/{{ item }}"
+    state: directory
+    owner: "{{ user_name }}"
+  loop:
+    - bin
+    - src
+    - pkg
+  become: false
+
+- name: Install Go tools
+  shell: |
+    export GOROOT=/usr/local/go
+    export GOPATH={{ home_dir }}/go
+    export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+    go install {{ item }}
+  loop:
+    - golang.org/x/tools/gopls@latest
+    - github.com/go-delve/delve/cmd/dlv@latest
+    - honnef.co/go/tools/cmd/staticcheck@latest
+  become: false
+  when: languages.golang.enabled
