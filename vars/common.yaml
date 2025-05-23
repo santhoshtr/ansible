@@ -1,0 +1,12 @@
+fullname: Santhosh Thottingal
+timezone: Asia/Kolkata
+locales:
+  - en_US.UTF-8
+hostname: carbon9
+user: santhosh
+username: "{{ user }}"
+github_username: santhoshtr
+email: santhosh.thottingal@gmail.com
+ubuntu_distribution: oracular
+dotfiles_home: "/home/{{ username }}/dotfiles"
+home_dir: "/home/{{ username }}"

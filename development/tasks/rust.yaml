@@ -1,0 +1,28 @@
+- name: Check if rustup is installed
+  stat:
+    path: "/home/{{ username }}/.cargo/bin/rustup"
+  register: rustup_installed
+  become: false # Run this as regular user, not sudo
+
+- name: Download and install rustup
+  shell: |
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+    source /home/{{ username }}/.cargo/env
+  args:
+    creates: "/home/{{ username }}/.cargo/bin/rustup"
+  become: false # Run as regular user
+  when: not rustup_installed.stat.exists
+
+- name: Update rustup and rust toolchain
+  shell: |
+    source /home/{{ username }}/.cargo/env
+    rustup update
+  become: false # Run as regular user
+  when: rustup_installed.stat.exists
+
+- name: Ensure .cargo/bin is in PATH for future sessions
+  lineinfile:
+    path: "/home/{{ username }}/.bashrc"
+    line: 'export PATH="$HOME/.cargo/bin:$PATH"'
+    create: yes
+  become: false

@@ -1,0 +1,18 @@
+- name: Install Homebrew
+  become: false
+  shell: |
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  args:
+    creates: /home/linuxbrew/.linuxbrew/bin/brew
+- name: Update homebrew and upgrade all packages
+  become: false
+  community.general.homebrew:
+    update_homebrew: true
+    upgrade_all: true
+- name: Install packages with Homebrew
+  become: false
+  community.general.homebrew:
+    name: "{{ item }}"
+    state: present
+    path: /home/linuxbrew/.linuxbrew/bin
+  loop: "{{ packages.brew }}"

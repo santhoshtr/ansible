@@ -1,0 +1,45 @@
+---
+# Installs [Starship](https://starship.rs/) prompt
+- name: Check if Starship is installed
+  ansible.builtin.stat:
+    path: /home/{{ user }}/.config/starship.toml
+  register: starship
+
+- name: Download and install starship
+  when: not starship.stat.exists
+  shell: |
+    curl --proto '=https' --tlsv1.2 -sSf https://starship.rs/install.sh | sh -s -- -y
+  become: false # Run as regular user
+
+- name: Install kitty terminal
+  shell: |
+    curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
+  become: false # Run as regular user
+
+- name: Create symbolic links for kitty
+  shell: |
+    ln -sf ~/.local/kitty.app/bin/kitty ~/.local/kitty.app/bin/kitten ~/.local/bin/
+  become: false
+
+- name: Copy kitty desktop file to applications directory
+  shell: |
+    mkdir -p ~/.local/share/applications/
+    cp ~/.local/kitty.app/share/applications/kitty.desktop ~/.local/share/applications/
+  become: false
+
+- name: Copy kitty-open desktop file
+  shell: |
+    cp ~/.local/kitty.app/share/applications/kitty-open.desktop ~/.local/share/applications/
+  become: false
+
+- name: Update paths in kitty desktop files
+  shell: |
+    sed -i "s|Icon=kitty|Icon=$(readlink -f ~)/.local/kitty.app/share/icons/hicolor/256x256/apps/kitty.png|g" ~/.local/share/applications/kitty*.desktop
+    sed -i "s|Exec=kitty|Exec=$(readlink -f ~)/.local/kitty.app/bin/kitty|g" ~/.local/share/applications/kitty*.desktop
+  become: false
+
+- name: Configure xdg-terminal-exec to use kitty
+  shell: |
+    mkdir -p ~/.config
+    echo 'kitty.desktop' > ~/.config/xdg-terminals.list
+  become: false

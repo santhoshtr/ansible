@@ -1,0 +1,11 @@
+- name: "Check if {{ nvm.path }} exists"
+  ansible.builtin.stat:
+    path: "{{ nvm.path }}"
+  register: nvm_dir
+
+- name: Download nvm ({{ nvm.version }})
+  ansible.builtin.get_url:
+    url: https://raw.githubusercontent.com/nvm-sh/nvm/{{ nvm.version }}/install.sh
+    dest: "{{ home_dir }}/install_nvm.sh"
+    mode: "777"
+  when: not nvm_dir.stat.exists

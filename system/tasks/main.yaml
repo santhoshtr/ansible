@@ -1,0 +1,6 @@
+- name: Install and update system packages
+  import_tasks: packages.yaml
+  tags: ["apt"]
+- name: Install and update brew packages
+  import_tasks: brew.yaml
+  tags: ["brew"]

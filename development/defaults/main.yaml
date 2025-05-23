@@ -1,0 +1,4 @@
+nvm:
+  path: "{{ home_dir }}/.nvm"
+  # https://github.com/nvm-sh/nvm/releases
+  version: v0.39.4
