@@ -48,7 +48,6 @@ packages:
     # Text processing and utilities
     - ripgrep
     - fd-find
-    - exa
     - bat
     - tree
     - htop
@@ -90,6 +89,8 @@ packages:
     - yazi
     - fzf
     - basedpyright
+    - eza
+    - zoxide
   snap:
     - slack --classic
 

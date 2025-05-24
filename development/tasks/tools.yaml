@@ -1,0 +1,27 @@
+---
+- name: Create .local/bin directory if it doesn't exist
+  file:
+    path: "{{ ansible_env.HOME }}/.local/bin"
+    state: directory
+    mode: '0755'
+
+- name: Download tree-sitter binary
+  get_url:
+    url: https://github.com/tree-sitter/tree-sitter/releases/download/v0.25.4/tree-sitter-linux-x64.gz
+    dest: "{{ ansible_env.HOME }}/.local/bin/tree-sitter-linux-x64.gz"
+    mode: '0644'
+
+- name: Extract tree-sitter binary
+  shell: gunzip -f {{ ansible_env.HOME }}/.local/bin/tree-sitter-linux-x64.gz
+  args:
+    creates: "{{ ansible_env.HOME }}/.local/bin/tree-sitter-linux-x64"
+
+- name: Rename tree-sitter binary
+  command: mv {{ ansible_env.HOME }}/.local/bin/tree-sitter-linux-x64 {{ ansible_env.HOME }}/.local/bin/tree-sitter
+  args:
+    creates: "{{ ansible_env.HOME }}/.local/bin/tree-sitter"
+
+- name: Make tree-sitter binary executable
+  file:
+    path: "{{ ansible_env.HOME }}/.local/bin/tree-sitter"
+    mode: '0755'

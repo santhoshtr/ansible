@@ -35,3 +35,7 @@
   tags:
     - AI
     - aider
+- name: Tools
+  import_tasks: tools.yaml
+  tags:
+    - tree-sitter
