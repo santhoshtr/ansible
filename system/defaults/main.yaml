@@ -5,10 +5,11 @@ packages:
     - zsh
     - bash
     - htop
-
   system:
     - wget
     - curl
+    - ncdu
+    - nala
     - fuse
     - jq
     - libfuse2
@@ -17,6 +18,9 @@ packages:
     - unrar
     - pipx
     - tmux
+    - foot
+    - foot-themes
+    - pass
     # Build essentials
     - build-essential
     - cmake
@@ -91,6 +95,11 @@ packages:
     - basedpyright
     - eza
     - zoxide
+    - lazydocker
+    - taskwarrior-tui
+    - rainfrog # database management tool
+    - atac # HTTP client
+    - miniserve # static http server in rust
   snap:
     - slack --classic
 
@@ -114,4 +123,4 @@ ppa_repositories:
   - "ppa:kobuk-team/intel-graphics"
   - "ppa:keyd-team/ppa"
   - "ppa:flexiondotorg/quickemu"
-  # -  ppa:cppiber/hyprland
+  - ppa:cppiber/hyprland

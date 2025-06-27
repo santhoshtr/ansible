@@ -8,6 +8,6 @@ username: "{{ user }}"
 user_name: "{{ user }}"
 github_username: santhoshtr
 email: santhosh.thottingal@gmail.com
-ubuntu_distribution: oracular
+ubuntu_distribution: plucky 
 dotfiles_home: "/home/{{ username }}/dotfiles"
 home_dir: "/home/{{ username }}"
